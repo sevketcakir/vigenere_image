@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Vigenere</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -54,6 +54,7 @@
      <string>&amp;Dosya</string>
     </property>
     <addaction name="action_ac"/>
+    <addaction name="action_kameradan_yakala"/>
     <addaction name="action_farkli_kaydet"/>
     <addaction name="separator"/>
     <addaction name="action_cik"/>
@@ -92,6 +93,11 @@
   <action name="action_farkli_kaydet">
    <property name="text">
     <string>Farklı Ka&amp;ydet</string>
+   </property>
+  </action>
+  <action name="action_kameradan_yakala">
+   <property name="text">
+    <string>&amp;Kameradan yakala</string>
    </property>
   </action>
  </widget>

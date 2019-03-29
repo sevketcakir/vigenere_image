@@ -2,6 +2,7 @@ from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from PyQt5.QtGui import QImage
 import sys
 import cv2
+import time
 
 
 class AnaEkran:
@@ -13,6 +14,7 @@ class AnaEkran:
         self.win.action_sifrele.triggered.connect(self.sifrele)
         self.win.action_coz.triggered.connect(self.coz)
         self.win.action_farkli_kaydet.triggered.connect(self.farkli_kaydet)
+        self.win.action_kameradan_yakala.triggered.connect(self.kameradan_yakala)
         self.win.show()
         self.image = None
         self.pixmap = None
@@ -25,6 +27,8 @@ class AnaEkran:
             self.resim_goster(self.win.resim, self.image)
 
     def resim_goster(self, bilesen, resim):
+        yukseklik, genislik = resim.shape[:2]
+        self.win.statusbar.showMessage(f"Resim boyutu: {genislik}x{yukseklik}")
         qformat = QtGui.QImage.Format_Indexed8
         if len(resim.shape) == 3:
             if resim.shape[2] == 4:
@@ -77,6 +81,21 @@ class AnaEkran:
                 cv2.imwrite(dosya_adi, self.image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
             else:
                 cv2.imwrite(dosya_adi, self.image)
+                
+    def kameradan_yakala(self):
+        cap = cv2.VideoCapture(0)
+        baslangic = time.time()
+        while True:
+            sure = time.time()-baslangic
+            ret, self.image = cap.read()
+            if sure >= 5:
+                self.resim_goster(self.win.resim, self.image)
+                break
+            cv2.putText(self.image,str(5-int(sure)), (10,100), cv2.FONT_HERSHEY_TRIPLEX,4,
+                        (255,255,255), 6, cv2.LINE_AA)
+            self.resim_goster(self.win.resim, self.image)
+            self.app.processEvents()
+
 
 
 if __name__ == '__main__':
