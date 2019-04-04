@@ -56,7 +56,7 @@ class AnaEkran:
                 for i in range(self.image.shape[0]):
                     for j in range(self.image.shape[1]):
                         for k in range(self.image.shape[2]):
-                            self.image[i, j, k] = (self.image[i, j, k]+anahtar[itr]) % 255
+                            self.image[i, j, k] = (self.image[i, j, k]+anahtar[itr]) % 256
                             itr = (itr + 1) % len(anahtar)
                 self.resim_goster(self.win.resim, self.image)
 
@@ -70,7 +70,7 @@ class AnaEkran:
                 for i in range(self.image.shape[0]):
                     for j in range(self.image.shape[1]):
                         for k in range(self.image.shape[2]):
-                            self.image[i, j, k] = (self.image[i, j, k]-anahtar[itr]) % 255
+                            self.image[i, j, k] = (self.image[i, j, k]-anahtar[itr]) % 256
                             itr = (itr + 1) % len(anahtar)
                 self.resim_goster(self.win.resim, self.image)
 
@@ -81,7 +81,7 @@ class AnaEkran:
                 cv2.imwrite(dosya_adi, self.image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
             else:
                 cv2.imwrite(dosya_adi, self.image)
-                
+
     def kameradan_yakala(self):
         cap = cv2.VideoCapture(0)
         baslangic = time.time()
